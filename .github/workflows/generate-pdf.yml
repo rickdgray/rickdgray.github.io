@@ -13,6 +13,7 @@ jobs:
       - name: Release new asset
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: date +'%Y-%m-%d %H:%M:%S'
           files: resume.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
