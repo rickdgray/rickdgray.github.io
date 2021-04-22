@@ -1,8 +1,8 @@
 name: Generate PDF
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,10 +13,12 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
+      - name: Create tag name
+        run: CURDATE = date +'%Y-%m-%d %H:%M:%S'
       - name: Release new asset
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: date +'%Y-%m-%d %H:%M:%S'
+          tag_name: $CURDATE
           files: resume.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
