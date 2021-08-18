@@ -1,24 +1,80 @@
-name: Generate PDF
+name: 🚀 Build and release PDF
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
+    outputs:
+      branch: v${{ env.timestamp }}
+      tag: v${{ env.timestamp }}
     steps:
-      - name: Set up git repo
+      - name: Create tag name
+        run: |
+		  echo "timestamp=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+
+      - name: 🔃 Checkout
         uses: actions/checkout@v2
-      - name: Compile LaTeX PDF
+
+      - name: 📦 Compile LaTeX PDF
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
-      - name: Create tag name
-        run: echo "timestamp=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-      - name: Release new asset
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.timestamp }}
-          files: resume.pdf
+
+      - name: 📢 Publish dist files to dist branch
+        uses: s0/git-publish-subdir-action@v2.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: self
+          BRANCH: v${{ env.timestamp }}
+          FOLDER: TODEPLOY
+          SKIP_EMPTY_COMMITS: true
+
+  tag_version:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    outputs:
+      tagged: ${{ steps.check_tagged.outputs.tagged }}
+      tag: ${{ steps.tag.outputs.new_tag }}
+    steps:
+      - name: 🔃 Checkout dist branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ needs.build_and_push.outputs.branch }}
+          fetch-depth: 0
+
+      - name: ⚙️ Check tag exists
+        id: check_tag
+        uses: mukunku/tag-exists-action@v1.0.0
+        with:
+          tag: ${{ needs.build_and_push.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔖 Tag version
+        id: tag
+        if: ${{ steps.check_tag.outputs.exists == 'false' }}
+        uses: anothrNick/github-tag-action@1.34.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUSTOM_TAG: ${{ needs.build_and_push.outputs.tag }}
+
+      - name: ⚙️ Check created tag
+        id: check_tagged
+        run: |
+          echo "::set-output name=tagged::${{ (steps.check_tag.outputs.exists == 'false') && (steps.tag.outputs.new_tag == steps.tag.outputs.tag) }}"
+
+  create_release:
+    needs: tag_version
+    if: ${{ needs.tag_version.outputs.tagged == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Create release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ needs.tag_version.outputs.tag }}
+          draft: true
