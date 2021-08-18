@@ -1,46 +1,123 @@
-\documentclass[12pt]{article}
-\usepackage{lingmacros}
-\usepackage{tree-dvips}
+\documentclass{res} 
+\newsectionwidth{0pt}  % So the text is not indented under section headings
+\setlength{\textheight}{10.2in} % set text height big enough for box
+\topmargin=-.5in       % to start box .5in from top of page
+\oddsidemargin=-.6in   % to start box .5in from left of page
+    
 \begin{document}
-
-\section*{Notes for My Paper}
-
-Don't forget to include examples of topicalization.
-They look like this:
-
-{\small
-\enumsentence{Topicalization from sentential subject:\\ 
-\shortex{7}{a John$_i$ [a & kltukl & [el & 
-  {\bf l-}oltoir & er & ngii$_i$ & a Mary]]}
-{ & {\bf R-}clear & {\sc comp} & 
-  {\bf IR}.{\sc 3s}-love   & P & him & }
-{John, (it's) clear that Mary loves (him).}}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following lines define \boxaround, used to draw a box on the page.
+% The parameter is the entire text of the resume. Must fit on one page!
+%
+% \boxaroundhmargin is the left & right margin around the text inside the box.
+% \boxaroundvmargin is the top & bottom margin around the text inside the box.
+% \boxrulethickness controls thickness of line used to draw the box.
+% You can change these 3 things in the lines below:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newdimen\boxrulethickness\newdimen\boxaroundhmargin\newdimen\boxaroundvmargin
+\boxrulethickness=.5pt        %controls thickness of line 
+\boxaroundhmargin=35pt        % about a half inch
+\boxaroundvmargin=25pt        % to fit more text on page, make this smaller
+%%%%%%%%%%%%%%%%%%%%%%%%% Don't read this stuff %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hsize=7.5in% \vsize=10.5in             % use bigger dimensions for box
+\newbox\MACboxA  \newdimen\MACdimenA
+% \borderandboxit is used inside \boxaround:
+\def\borderandboxit#1#2#3{\vbox{\hrule height#2\hbox{\vrule width#2\hskip#1\hskip-#2%
+  \vbox{\vskip#1\relax#3\vskip#1}\hskip#1\hskip-#2\vrule width#2}\hrule height#2}}
+%
+\long\def\boxaround#1{\vskip6pt
+  {\MACdimenA=\hsize \advance\MACdimenA by-\boxaroundhmargin
+   \advance\MACdimenA by-\boxaroundhmargin   % once for each side
+   \setbox\MACboxA=\hbox to \hsize{\hskip\boxaroundhmargin%\hss
+                     \vbox{\hsize=\MACdimenA
+                           \vskip\boxaroundvmargin #1
+                           \vskip\boxaroundvmargin}\hss}%
+   \borderandboxit{0pt}\boxrulethickness{\box\MACboxA}}%
+  \vskip2pt plus0pt minus0pt
 }
+%%%%%%%%%%%%%%%%%%%  End of \boxaround macro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\boxaround{ % put the text on the page inside a box  
 
-\subsection*{How to handle topicalization}
+\name{RICK DONALD GRAY\\[12pt]}
+\address{\bf rickdgray.com\\rickdgray@outlook.com\\
+        (346) 307-5161} 
 
-I'll just assume a tree structure like (\ex{1}).
+ 
+\begin{resume}
+ 
+\section{\sl Experience}
+\begin{ncolumn}{2}
+  {\it Software Engineer II}  &   {\hspace*{\fill} Oct 2019 -- Present}
+\end{ncolumn}\\
+InEight, Inc. -- Houston (Remote)
+\begin{itemize}
+  \item Developer of .NET Core/Angular 11 project management and scheduling app
+  \item Developed for conversion to Typescript and Framework 4.7 to Core
+  \item Lead planning and execution phase of Azure Cosmos DB implementation
+  \item Lead development and implementation of real-time communication system, SignalR
+  \item Developer for Angular.js to Angular 12 conversion
+\end{itemize}
 
-{\small
-\enumsentence{Structure of A$'$ Projections:\\ [2ex]
-\begin{tabular}[t]{cccc}
-    & \node{i}{CP}\\ [2ex]
-    \node{ii}{Spec} &   &\node{iii}{C$'$}\\ [2ex]
-        &\node{iv}{C} & & \node{v}{SAgrP}
-\end{tabular}
-\nodeconnect{i}{ii}
-\nodeconnect{i}{iii}
-\nodeconnect{iii}{iv}
-\nodeconnect{iii}{v}
-}
-}
+\begin{ncolumn}{2}
+  {\it Software Engineer}  &   {\hspace*{\fill} Oct 2018 -- Oct 2019}
+\end{ncolumn}\\
+RLI Corp. -- Houston
+\begin{itemize}
+  \item Developer of internal .NET/MVC web API with CI/CD
+  \item Developer of internal MVVM UI with .NET and TypeScript
+  \item Used Agile methodology with daily scrums
+\end{itemize}
 
-\subsection*{Mood}
+\begin{ncolumn}{2}
+  {\it Software Engineer}  &   {\hspace*{\fill} Jun 2017 -- Oct 2018}
+\end{ncolumn}\\
+Capgemini -- Houston
+\begin{itemize}
+  \item Developed and tested features in EZTag mobile apps using MVVM
+  \item Developed and tested .NET Core API endpoints with Entity Framework 6
+  \item Developed, normalized and tested MS SQL Database for app features
+  \item Architected Full stack for features in mobile app
+  \item App pushed to prod and used by an estimated 2.8 million users
+\end{itemize}
 
-Mood changes when there is a topic, as well as when
-there is WH-movement.  \emph{Irrealis} is the mood when
-there is a non-subject topic or WH-phrase in Comp.
-\emph{Realis} is the mood when there is a subject topic
-or WH-phrase.
+\begin{ncolumn}{2}
+  {\it Technology Analyst}  &   {\hspace*{\fill} Jun 2015 -- Aug 2016}
+\end{ncolumn}\\
+J.P. Morgan Chase \& Co. -- Houston
+\begin{itemize}
+  \item Saved the company \$5.6 million annually through onboarding automation
+  \item Automated ticket and communications for help desk team
+  \item Manually decommissioned over 75 Windows/Linux servers
+\end{itemize}
 
+\section{\sl  Education}
+\begin{ncolumn}{2}
+  {\it Bachelor of Science in Computer Science}  &   {\hspace*{\fill} May 2017}
+\end{ncolumn}\\
+Minor in Mathematics\\
+University of Houston -- Main Campus\\
+Cum Laude, 3.65
+
+\begin{ncolumn}{2}
+  {\it Master of Science in Data Science}  &   {\hspace*{\fill} May 2024}
+\end{ncolumn}\\
+Minor in Mathematics\\
+University of Texas at Austin
+
+\section{\sl  Proficiencies}
+\begin{itemize}
+  \item .NET/.NET Core/C\#
+  \item TypeScript
+  \item Entity Framework 6/Core
+  \item Azure
+  \item Xamarin
+  \item Microsoft SQL Server
+  \item VS/TFS/ADO
+\end{itemize}
+
+\end{resume}
+
+\vfill} %    end the material being boxed.
 \end{document}
