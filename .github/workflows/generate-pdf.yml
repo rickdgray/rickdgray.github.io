@@ -6,18 +6,18 @@ on:
       - main
 
 jobs:
-  build_and_push:
+  build_and_release:
     runs-on: ubuntu-latest
     steps:
       - name: 🔃 Checkout
         uses: actions/checkout@v2
 
-      - name: 📦 Compile LaTeX PDF
+      - name: 📃 Compile LaTeX PDF
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
 
-      - name: Create tag name
+      - name: 🗓️ Create timestamp
         run: |
           echo "timestamp=$(date +"%Y%m%dT%H%M%SZ")" >> $GITHUB_ENV
 
@@ -34,4 +34,3 @@ jobs:
           artifacts: "resume.pdf"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: v${{ env.timestamp }}
-          draft: true
