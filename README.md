@@ -1,3 +1,1 @@
-# My resume page
-
-need to work on automating it to latex and maybe this readme
+[resume](https://github.com/rickdgray/rickdgray.github.io/releases/latest/download/resume.pdf)
