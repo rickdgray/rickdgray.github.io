@@ -13,7 +13,7 @@ jobs:
       tag: v${{ env.timestamp }}
     steps:
       - name: Create tag name
-        run: echo "timestamp=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        run: echo "timestamp=$(date +"%Y%m%dT%H%M%SZ")" >> $GITHUB_ENV
 
       - name: 🔃 Checkout
         uses: actions/checkout@v2
