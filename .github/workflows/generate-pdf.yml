@@ -22,6 +22,11 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
+      
+      - name: ⚙️ Setup dist folder
+        run: |
+          mkdir ToDeploy
+          mv resume.pdf ToDeploy
 
       - name: 📢 Publish dist files to dist branch
         uses: s0/git-publish-subdir-action@v2.4.0
@@ -29,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: self
           BRANCH: v${{ env.timestamp }}
-          FOLDER: TODEPLOY
+          FOLDER: ToDeploy
           SKIP_EMPTY_COMMITS: true
 
   tag_version:
