@@ -1,7 +1,6 @@
 const STAR_FIELD_SPEED = 1000;
 const STAR_COUNT = 10000;
-const BRIGHTEST_STAR_COLOR = 'FFFFFF';
-const DIMMEST_STAR_COLOR = 'FDCA40';
+const STAR_COLOR = 'FFFFFF';
 const BACKGROUND_COLOR = '#07090E';
 const CARD_MAX_ROTATION = 45;
 
@@ -48,15 +47,10 @@ const hexToRgb = (hex) => {
     return [r, g, b];
 };
 
-const [brightRed, brightGreen, brightBlue] = hexToRgb(BRIGHTEST_STAR_COLOR);
-const [dimRed, dimGreen, dimBlue] = hexToRgb(DIMMEST_STAR_COLOR);
+const [red, green, blue] = hexToRgb(STAR_COLOR);
 
 const drawStar = (x, y, brightness) => {
-    // TODO: use rng to get a random color between the brightest and dimmest
-    const randomRed = brightness * Math.random() * (brightRed - dimRed) + dimRed;
-    const randomGreen = brightness * Math.random() * (brightGreen - dimGreen) + dimGreen;
-    const randomBlue = brightness * Math.random() * (brightBlue - dimBlue) + dimBlue;
-    c.fillStyle = `rgb(${brightRed},${brightGreen},${brightBlue})`;
+    c.fillStyle = `rgb(${brightness * red},${brightness * green},${brightness * blue})`;
     c.fillRect(x, y, 1, 1);
 };
 
@@ -121,3 +115,19 @@ rotate = (event, element) => {
     element.style.setProperty('--rotateX', `${rotateY}deg`);
     element.style.setProperty('--rotateY', `${rotateX}deg`);
 }
+
+// TODO: speed slider
+
+// const speedSlider = document.querySelector('.speed-slider');
+
+// speedSlider.addEventListener('input', (event) => {
+//     let value = 100 - event.target.value;
+//     value *= STAR_MAX_SPEED - STAR_MIN_SPEED;
+//     value /= 100;
+//     value + STAR_MIN_SPEED;
+    
+//     stars.forEach(star => {
+//         star.z = value;
+//     });
+//     STAR_FIELD_SPEED = value;
+// });
