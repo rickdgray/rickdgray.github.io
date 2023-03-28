@@ -15,15 +15,15 @@
 }
 
 :root {
-    --main-back: #07090Eff;
-    --card-back: #151928ff;
-    --highlight-middle: #aaaaaaff;
+    --main-back: #07090E;
+    --card-back: #151928;
+    --highlight-middle: #aaaaaa;
 
-    --highlight-1: #ff006eff;
-    --highlight-2: #00ffeaff;
+    --highlight-1: #ff006e;
+    --highlight-2: #00ffea;
 
-    --title: #eff9f0ff;
-    --title-shadow: #000000ff;
+    --title: #eff9f0;
+    --title-shadow: #000000;
 }
 
 body {
@@ -33,8 +33,7 @@ body {
     place-content: center;
 }
 
-.space,
-.placard {
+.card-container {
     position: absolute;
     width: 100%;
     height: 100%;

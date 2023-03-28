@@ -1,98 +1,105 @@
-const canvas = document.querySelector("canvas");
-const c = canvas.getContext("2d");
+const STAR_FIELD_SPEED = 1000;
+const STAR_COUNT = 10000;
+const BRIGHTEST_STAR_COLOR = 'FFFFFF';
+const DIMMEST_STAR_COLOR = 'FDCA40';
+const BACKGROUND_COLOR = '#07090E';
+const CARD_MAX_ROTATION = 45;
 
-let w;
-let h;
+// star field
 
-const setCanvasExtents = () => {
-    w = document.body.clientWidth;
-    h = document.body.clientHeight;
-    canvas.width = w;
-    canvas.height = h;
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
+
+const setCanvasSize = () => {
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
 };
 
-setCanvasExtents();
+setCanvasSize();
 
 window.onresize = () => {
-    setCanvasExtents();
+    setCanvasSize();
 };
 
-const makeStars = count => {
-    const out = [];
-    for (let i = 0; i < count; i++) {
-        const s = {
-            x: Math.random() * 1600 - 800,
-            y: Math.random() * 900 - 450,
-            z: Math.random() * 1000
-        };
-        out.push(s);
+const getStars = () => {
+    const stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+            x: Math.random() * canvas.width - canvas.width / 2,
+            y: Math.random() * canvas.height - canvas.height / 2,
+            z: Math.random() * STAR_FIELD_SPEED
+        });
     }
-    return out;
+    return stars;
 };
 
-let stars = makeStars(10000);
+let stars = getStars();
 
 const clear = () => {
-    c.fillStyle = "black";
+    c.fillStyle = BACKGROUND_COLOR;
     c.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const putPixel = (x, y, brightness) => {
-    const intensity = brightness * 255;
-    const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
-    c.fillStyle = rgb;
+const hexToRgb = (hex) => {
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return [r, g, b];
+};
+
+const [brightRed, brightGreen, brightBlue] = hexToRgb(BRIGHTEST_STAR_COLOR);
+const [dimRed, dimGreen, dimBlue] = hexToRgb(DIMMEST_STAR_COLOR);
+
+const drawStar = (x, y, brightness) => {
+    // TODO: use rng to get a random color between the brightest and dimmest
+    const randomRed = brightness * Math.random() * (brightRed - dimRed) + dimRed;
+    const randomGreen = brightness * Math.random() * (brightGreen - dimGreen) + dimGreen;
+    const randomBlue = brightness * Math.random() * (brightBlue - dimBlue) + dimBlue;
+    c.fillStyle = `rgb(${brightRed},${brightGreen},${brightBlue})`;
     c.fillRect(x, y, 1, 1);
 };
 
-const moveStars = distance => {
-    const count = stars.length;
-    for (var i = 0; i < count; i++) {
-        const s = stars[i];
-        s.z -= distance;
-        while (s.z <= 1) {
-            s.z += 1000;
+const drawStars = () => {
+    stars.forEach(star => {
+        const distance = star.z / STAR_FIELD_SPEED;
+
+        const x = star.x / distance + canvas.width / 2;
+        const y = star.y / distance + canvas.height / 2;
+
+        if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) {
+            return;
         }
-    }
+
+        const brightness = 1 - distance * distance;
+
+        drawStar(x, y, brightness);
+    });
 };
 
-let prevTime;
-const init = time => {
-    prevTime = time;
-    requestAnimationFrame(tick);
+const moveStars = (elapsedTime) => {
+    stars.forEach(star => {
+        star.z -= 0.1 * elapsedTime;
+        while (star.z <= 1) {
+            star.z += STAR_FIELD_SPEED;
+        }
+    });
 };
 
-const tick = time => {
-    let elapsed = time - prevTime;
-    prevTime = time;
-
-    moveStars(elapsed * 0.1);
+let lastTime = 0;
+const tick = (time) => {
+    moveStars(time - lastTime);
+    lastTime = time;
 
     clear();
-
-    const cx = w / 2;
-    const cy = h / 2;
-
-    const count = stars.length;
-    for (var i = 0; i < count; i++) {
-        const star = stars[i];
-
-        const x = cx + star.x / (star.z * 0.001);
-        const y = cy + star.y / (star.z * 0.001);
-
-        if (x < 0 || x >= w || y < 0 || y >= h) {
-            continue;
-        }
-
-        const d = star.z / 1000.0;
-        const b = 1 - d * d;
-
-        putPixel(x, y, b);
-    }
+    drawStars();
 
     requestAnimationFrame(tick);
 };
 
-requestAnimationFrame(init);
+requestAnimationFrame(tick);
+
+// card
 
 const card = document.querySelector('.card');
 
@@ -107,8 +114,8 @@ rotate = (event, element) => {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    const rotateX = ((x - centerX) / centerX) * 45;
-    const rotateY = ((y - centerY) / centerY) * -45;
+    const rotateX = ((x - centerX) / centerX) * CARD_MAX_ROTATION;
+    const rotateY = ((y - centerY) / centerY) * -1 * CARD_MAX_ROTATION;
 
     // rotate X and Y are swapped because of how the axis is used in css
     element.style.setProperty('--rotateX', `${rotateY}deg`);
