@@ -98,8 +98,6 @@ body {
     text-shadow: 0 0 0.3em var(--title-shadow);
 }
 
-/* TODO:
-
 .speed-slider-container {
     width: 15rem;
     position: absolute;
@@ -139,4 +137,4 @@ body {
     height: 1rem;
     background: var(--highlight-1);
     cursor: pointer;
-} */
+}

@@ -1,6 +1,8 @@
-const STAR_FIELD_SPEED = 1000;
 const STAR_COUNT = 10000;
-const STAR_COLOR = 'FFFFFF';
+const STAR_MAX_SPEED = 4.5;
+const STAR_MIN_SPEED = 0.01;
+const STAR_FIELD_DEPTH = 1000;
+const STAR_COLOR = '#FFFFFF';
 const BACKGROUND_COLOR = '#07090E';
 const CARD_MAX_ROTATION = 45;
 
@@ -26,7 +28,7 @@ const getStars = () => {
         stars.push({
             x: Math.random() * canvas.width - canvas.width / 2,
             y: Math.random() * canvas.height - canvas.height / 2,
-            z: Math.random() * STAR_FIELD_SPEED
+            z: Math.random() * STAR_FIELD_DEPTH
         });
     }
     return stars;
@@ -39,7 +41,8 @@ const clear = () => {
     c.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const hexToRgb = (hex) => {
+const colorHexToRgb = (colorHex) => {
+    const hex = colorHex.replace('#', '');
     const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
@@ -47,7 +50,7 @@ const hexToRgb = (hex) => {
     return [r, g, b];
 };
 
-const [red, green, blue] = hexToRgb(STAR_COLOR);
+const [red, green, blue] = colorHexToRgb(STAR_COLOR);
 
 const drawStar = (x, y, brightness) => {
     c.fillStyle = `rgb(${brightness * red},${brightness * green},${brightness * blue})`;
@@ -56,7 +59,7 @@ const drawStar = (x, y, brightness) => {
 
 const drawStars = () => {
     stars.forEach(star => {
-        const distance = star.z / STAR_FIELD_SPEED;
+        const distance = star.z / STAR_FIELD_DEPTH;
 
         const x = star.x / distance + canvas.width / 2;
         const y = star.y / distance + canvas.height / 2;
@@ -71,11 +74,12 @@ const drawStars = () => {
     });
 };
 
+let starFieldSpeed = 0.3;
 const moveStars = (elapsedTime) => {
     stars.forEach(star => {
-        star.z -= 0.1 * elapsedTime;
+        star.z -= starFieldSpeed * elapsedTime;
         while (star.z <= 1) {
-            star.z += STAR_FIELD_SPEED;
+            star.z += STAR_FIELD_DEPTH;
         }
     });
 };
@@ -116,18 +120,10 @@ rotate = (event, element) => {
     element.style.setProperty('--rotateY', `${rotateX}deg`);
 }
 
-// TODO: speed slider
+// speed slider
 
-// const speedSlider = document.querySelector('.speed-slider');
+const speedSlider = document.querySelector('.speed-slider');
 
-// speedSlider.addEventListener('input', (event) => {
-//     let value = 100 - event.target.value;
-//     value *= STAR_MAX_SPEED - STAR_MIN_SPEED;
-//     value /= 100;
-//     value + STAR_MIN_SPEED;
-    
-//     stars.forEach(star => {
-//         star.z = value;
-//     });
-//     STAR_FIELD_SPEED = value;
-// });
+speedSlider.addEventListener('input', (event) => {
+    starFieldSpeed = event.target.value;
+});
