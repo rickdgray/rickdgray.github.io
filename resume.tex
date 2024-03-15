@@ -1,130 +1,231 @@
-\documentclass{res}
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
 \usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
 \usepackage{multicol}
 \usepackage{musicography}
-\newsectionwidth{0pt}
-\setlength{\textheight}{10.2in}
-\topmargin=-.5in
-\oddsidemargin=-.6in
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
 
 \begin{document}
 
-%magic border logic
-\newdimen\boxrulethickness\newdimen\boxaroundhmargin\newdimen\boxaroundvmargin
-\boxrulethickness=.5pt
-\boxaroundhmargin=35pt
-\boxaroundvmargin=40pt
-\hsize=7.5in
-\newbox\MACboxA  \newdimen\MACdimenA
-\def\borderandboxit#1#2#3{\vbox{\hrule height#2\hbox{\vrule width#2\hskip#1\hskip-#2
-\vbox{\vskip#1\relax#3\vskip#1}\hskip#1\hskip-#2\vrule width#2}\hrule height#2}}
-\long\def\boxaround#1{\vskip6pt
-  {\MACdimenA=\hsize \advance\MACdimenA by-\boxaroundhmargin
-   \advance\MACdimenA by-\boxaroundhmargin
-   \setbox\MACboxA=\hbox to \hsize{\hskip\boxaroundhmargin
-   \vbox{\hsize=\MACdimenA
-   \vskip\boxaroundvmargin #1
-   \vskip\boxaroundvmargin}\hss}
-   \borderandboxit{0pt}\boxrulethickness{\box\MACboxA}}
-  \vskip2pt plus0pt minus0pt
-}
+\begin{center}
+    {\Huge \scshape Rick Gray} \\ \vspace{1pt}
+    7811 Iris Glen Ln, Richmond, Texas 77407 \\ \vspace{1pt}
+    \small \raisebox{-0.1\height}\faPhone\ 346-307-5161 ~ \href{mailto:rickdgray@outlook.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{rickdgray@outlook.com}} ~ 
+    \href{https://linkedin.com/in/rickdgray/}{\raisebox{-0.2\height}\faLinkedin\ \underline{linkedin.com/in/rickdgray}}  ~
+    \href{https://github.com/rickdgray}{\raisebox{-0.2\height}\faGithub\ \underline{github.com/rickdgray}}
+    \vspace{-8pt}
+\end{center}
 
-%all content goes in here
-\boxaround{
+\section{Experience}
+  \resumeSubHeadingListStart
 
-\name{Rick Donald Gray\\[12pt]}
-\address{\bf rickdgray.github.io\\
-rickdgray@outlook.com\\
-(346) 307-5161}
+    \resumeSubheading
+      {DriveCentric, LLC.}{Feb 2023 -- Present}
+      {Senior Software Engineer}{Remote}
+      \resumeItemListStart
+        \resumeItem{Developer on inventory and appraisal integration team}
+        \resumeItem{Lead developer on Angular user interface for inventory management}
+        \resumeItem{Contributed to architecture and migration of dynamic inventory processing system}
+      \resumeItemListEnd
 
-\begin{resume}
+    \resumeSubheading
+      {InEight, Inc.}{Oct 2019 -- Jul 2022}
+      {Software Engineer II}{Remote}
+      \resumeItemListStart
+      \resumeItem{Developer of .NET Core/Angular 12 project management and scheduling app}
+      \resumeItem{Developed for conversion from Angularjs to Angular 12 and Framework 4.7 to Core}
+      \resumeItem{Lead development and implementation of real-time communication system (SignalR)}
+      \resumeItem{Lead planning and execution phase of Azure Cosmos DB implementation}
+    \resumeItemListEnd
 
-\section{\bf Experience}
-\begin{ncolumn}{2}
-  {\it Senior Software Engineer}  &   {\hspace*{\fill} Feb 2023 -- Present}
-\end{ncolumn}\\
-DriveCentric, LLC. -- Remote
-\begin{itemize}[noitemsep]
-  \item Developer on inventory and appraisal integration team
-  \item Lead developer on Angular user interface for inventory management
-  \item Contribute to architecture and migration of dynamic inventory processing system
-\end{itemize}
+    \resumeSubheading
+      {RLI Corp.}{Oct 2018 -- Oct 2019}
+      {Software Engineer}{Houston}
+      \resumeItemListStart
+      \resumeItem{Developer of internal .NET/MVC web API with CI/CD}
+      \resumeItem{Developer of internal MVVM UI with .NET and TypeScript}
+    \resumeItemListEnd
 
-\begin{ncolumn}{2}
-  {\it Software Engineer II}  &   {\hspace*{\fill} Oct 2019 -- Jul 2022}
-\end{ncolumn}\\
-InEight, Inc. -- Remote
-\begin{itemize}[noitemsep]
-  \item Developer of .NET Core/Angular 12 project management and scheduling app
-  \item Developed for conversion from Angularjs to Angular 12 and Framework 4.7 to Core
-  \item Lead development and implementation of real-time communication system (SignalR)
-  \item Lead planning and execution phase of Azure Cosmos DB implementation
-\end{itemize}
+    \resumeSubheading
+      {Capgemini}{Jun 2017 -- Oct 2018}
+      {Software Engineer}{Houston}
+      \resumeItemListStart
+      \resumeItem{Developed and tested features in EZTag mobile apps using MVVM}
+      \resumeItem{Architected Full stack for features in mobile app}
+      \resumeItem{Mobile app pushed to prod and used by an estimated 2.8 million users}
+    \resumeItemListEnd
 
-\begin{ncolumn}{2}
-  {\it Software Engineer}  &   {\hspace*{\fill} Oct 2018 -- Oct 2019}
-\end{ncolumn}\\
-RLI Corp. -- Houston
-\begin{itemize}[noitemsep]
-  \item Developer of internal .NET/MVC web API with CI/CD
-  \item Developer of internal MVVM UI with .NET and TypeScript
-\end{itemize}
+    \resumeSubheading
+      {JPMorgan Chase \& Co.}{Jun 2015 -- Aug 2016}
+      {Technology Analyst}{Houston}
+      \resumeItemListStart
+      \resumeItem{Saved the company \$5.6 million annually through onboarding automation}
+      \resumeItem{Automated ticket and communications for help desk team}
+    \resumeItemListEnd
+    
+  \resumeSubHeadingListEnd
 
-\begin{ncolumn}{2}
-  {\it Software Engineer}  &   {\hspace*{\fill} Jun 2017 -- Oct 2018}
-\end{ncolumn}\\
-Capgemini -- Houston
-\begin{itemize}[noitemsep]
-  \item Developed and tested features in EZTag mobile apps using MVVM
-  \item Architected Full stack for features in mobile app
-  \item Mobile app pushed to prod and used by an estimated 2.8 million users
-\end{itemize}
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Texas at Austin}{Dec 2023}
+      {Master of Science in Data Science, 3.70}{Austin, TX}
+    \resumeSubheading
+      {University of Houston}{May 2017}
+      {Bachelor of Science in Computer Science, 3.65, Cum Laude}{Houston, TX}
+  \resumeSubHeadingListEnd
 
-\begin{ncolumn}{2}
-  {\it Technology Analyst}  &   {\hspace*{\fill} Jun 2015 -- Aug 2016}
-\end{ncolumn}\\
-JPMorgan Chase \& Co. -- Houston
-\begin{itemize}[noitemsep]
-  \item Saved the company \$5.6 million annually through onboarding automation
-  \item Automated ticket and communications for help desk team
-\end{itemize}
+% \section{Projects}
+%     \vspace{-5pt}
+%     \resumeSubHeadingListStart
+%       \resumeProjectHeading
+%           {\textbf{Gym Reservation Bot} $|$ \emph{Python, Selenium, Google Cloud Console}}{January 2021}
+%           \resumeItemListStart
+%             \resumeItem{Developed an automatic bot using Python and Google Cloud Console to register myself for a timeslot at my school gym.}
+%             \resumeItem{Implemented Selenium to create an instance of Chrome in order to interact with the correct elements of the web page.}
+%             \resumeItem{Created a Linux virtual machine to run on Google Cloud so that the program is able to run everyday from the cloud.}
+%             \resumeItem{Used Cron to schedule the program to execute automatically at 11 AM every morning so a reservation is made for me.}
+%           \resumeItemListEnd
+%           \vspace{-13pt}
+%       \resumeProjectHeading
+%           {\textbf{Ticket Price Calculator App} $|$ \emph{Java, Android Studio}}{November 2020}
+%           \resumeItemListStart
+%             \resumeItem{Created an Android application using Java and Android Studio to calculate ticket prices for trips to museums in NYC.}
+%             \resumeItem{Processed user inputted information in the back-end of the app to return a subtotal price based on the tickets selected.}
+%             \resumeItem{Utilized the layout editor to create a UI for the application in order to allow different scenes to interact with each other.}
+%           \resumeItemListEnd 
+%           \vspace{-13pt}
+%           \resumeProjectHeading
+%           {\textbf{Transaction Management GUI} $|$ \emph{Java, Eclipse, JavaFX}}{October 2020}
+%           \resumeItemListStart
+%             \resumeItem{Designed a sample banking transaction system using Java to simulate the common functions of using a bank account.}
+%             \resumeItem{Used JavaFX to create a GUI that supports actions such as creating an account, deposit, withdraw, list all acounts, etc.}
+%             \resumeItem{Implemented object-oriented programming practices such as inheritance to create different account types and databases.}
+%           \resumeItemListEnd 
+%     \resumeSubHeadingListEnd
 
-\section{\bf Education}
-\begin{ncolumn}{2}
-  {\it Master of Science in Data Science}  &   {\hspace*{\fill} Dec 2023}
-\end{ncolumn}\\
-University of Texas at Austin\\
-3.70
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: .NET \& C\musSharp{}, Python, TypeScript, R, PowerShell, HTML/CSS} \\
+     \textbf{Developer Tools}{: Visual Studio, VS Code, Azure Portal, Azure Dev Ops} \\
+     \textbf{Technologies/Frameworks}{: Linux, GitHub Actions} \\
+    }}
+ \end{itemize}
 
-\begin{ncolumn}{2}
-  {\it Bachelor of Science in Computer Science}  &   {\hspace*{\fill} May 2017}
-\end{ncolumn}\\
-University of Houston\\
-3.65, Cum Laude
+\section{Relevant Coursework}
+    %\resumeSubHeadingListStart
+        \begin{multicols}{4}
+            \begin{itemize}[itemsep=-5pt, parsep=3pt]
+                \item\small Time Series Analysis
+                \item Deep Learning
+                \item Statistical Inference
+                \item Causal Inference
+                \item Predictive Models
+                \item Geospatial Analysis
+                \item Data Visualization
+            \end{itemize}
+        \end{multicols}
+        \vspace*{2.0\multicolsep}
+    %\resumeSubHeadingListEnd
 
-\begin{multicols}{2}
-  \section{\bf Proficiencies}
-  \begin{itemize}[noitemsep]
-    \item .NET \& C\musSharp{}
-    \item Angular
-    \item TypeScript
-    \item Python
-    \item R
-    \item Azure
-  \end{itemize}
-  
-  \section{\bf Relevant Coursework}
-  \begin{itemize}[noitemsep]
-    \item Time Series Analysis with SARIMA
-    \item Deep Learning with PyTorch
-    \item Statistical Inference
-    \item Causal Inference
-    \item Predictive Models
-    \item Data Exploration and Visualization
-  \end{itemize}
-\end{multicols}
-
-\end{resume}
-
-\vfill}
 \end{document}

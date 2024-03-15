@@ -5,4 +5,5 @@
 *.synctex.gz
 *.synctex(busy)
 *.mx1
+*.out
 *.pdf
