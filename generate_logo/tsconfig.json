@@ -1,0 +1,14 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "./dist",
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "target": "ES2022",
+        "module": "CommonJS",
+        "esModuleInterop": true
+    }
+}
